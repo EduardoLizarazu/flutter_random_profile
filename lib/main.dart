@@ -72,6 +72,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final allWidget = Row(
+      // ignore: prefer_const_literals_to_create_immutables
+      children: [
+        Image(image: NetworkImage(photoThumbnail)),
+        Container(
+          width: 100,
+          child: TextFormField(
+            controller: titleCont,
+            readOnly: true,
+            decoration:
+                const InputDecoration(hintText: "", border: InputBorder.none),
+          ),
+        ),
+        Container(
+          width: 100,
+          child: TextFormField(
+            controller: firstNameCont,
+            readOnly: true,
+            decoration:
+                const InputDecoration(hintText: "", border: InputBorder.none),
+          ),
+        ),
+        Container(
+          width: 100,
+          child: TextFormField(
+            controller: lastNameCont,
+            readOnly: true,
+            decoration:
+                const InputDecoration(hintText: "", border: InputBorder.none),
+          ),
+        ),
+      ],
+    );
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -92,41 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ListView(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              children: [
-                Row(
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: [
-                    Image(image: NetworkImage(photoThumbnail)),
-                    Container(
-                      width: 100,
-                      child: TextFormField(
-                        controller: titleCont,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                            hintText: "", border: InputBorder.none),
-                      ),
-                    ),
-                    Container(
-                      width: 100,
-                      child: TextFormField(
-                        controller: firstNameCont,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                            hintText: "", border: InputBorder.none),
-                      ),
-                    ),
-                    Container(
-                      width: 100,
-                      child: TextFormField(
-                        controller: lastNameCont,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                            hintText: "", border: InputBorder.none),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              children: [allWidget],
             )
           ],
         ));
