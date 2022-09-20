@@ -37,7 +37,12 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController titleCont = TextEditingController();
   TextEditingController firstNameCont = TextEditingController();
   TextEditingController lastNameCont = TextEditingController();
-  final List<String> newPhotoList = [""];
+
+  final List<String> photoThumbnailList = <String>[];
+  final List<String> photoLargeList = <String>[];
+  final List<String> titleNameList = <String>[];
+  final List<String> firstNameList = <String>[];
+  final List<String> lastNameList = <String>[];
   Future<String> getData() async {
     var response = await http.get(Uri.parse("https://randomuser.me/api/"),
         headers: {"Accept": "application/json"});
@@ -52,13 +57,16 @@ class _MyHomePageState extends State<MyHomePage> {
         titleCont.text = titleName.toString();
         firstNameCont.text = firstName.toString();
         lastNameCont.text = lastName.toString();
-
-        print(photoThumbnail);
-        print(photoLarge);
-        print(firstName);
-        print(lastName);
+        // print(photoThumbnail);
+        // print(photoLarge);
+        // print(firstName);
+        // print(lastName);
         setState(() {
-          // newPhotoList.add(newPhoto);
+          photoThumbnailList.add(photoThumbnail);
+          photoLargeList.add(photoThumbnail);
+          titleNameList.add(photoThumbnail);
+          firstNameList.add(photoThumbnail);
+          lastNameList.add(photoThumbnail);
         });
         // return "Okey";
       } else {
@@ -67,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } on Exception catch (error) {
       print(error);
     }
+    // print(firstNameList);
     return "Okey";
   }
 
@@ -115,17 +124,46 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: getData,
               child: new Text("New Photo"),
             ),
-            // ListView.builder(
-            //   padding: const EdgeInsets.all(8),
-            //   itemCount: newPhotoList.length,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     return Container();
-            //   },
-            // ),
-            ListView(
+            ListView.builder(
+              padding: const EdgeInsets.all(8),
+              itemCount: titleNameList.length,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              children: [allWidget],
+              itemBuilder: (BuildContext context, int index) {
+                return Row(
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    Image(image: NetworkImage(photoThumbnailList[index])),
+                    Container(
+                      width: 100,
+                      child: TextFormField(
+                        controller: titleCont,
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                            hintText: "", border: InputBorder.none),
+                      ),
+                    ),
+                    Container(
+                      width: 100,
+                      child: TextFormField(
+                        controller: firstNameCont,
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                            hintText: "", border: InputBorder.none),
+                      ),
+                    ),
+                    Container(
+                      width: 100,
+                      child: TextFormField(
+                        controller: lastNameCont,
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                            hintText: "", border: InputBorder.none),
+                      ),
+                    ),
+                  ],
+                );
+              },
             )
           ],
         ));
