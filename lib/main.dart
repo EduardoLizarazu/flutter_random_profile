@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: Column(
+        body: ListView(
           children: [
             ElevatedButton(
               onPressed: getData,
