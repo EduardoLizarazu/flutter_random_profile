@@ -41,27 +41,33 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<String> getData() async {
     var response = await http.get(Uri.parse("https://randomuser.me/api/"),
         headers: {"Accept": "application/json"});
-    if (response.statusCode == 200) {
-      Map<String, dynamic> map = json.decode(response.body);
-      photoThumbnail = map["results"][0]["picture"]["thumbnail"];
-      photoLarge = map["results"][0]["picture"]["large"];
-      String titleName = map["results"][0]["name"]["title"];
-      String firstName = map["results"][0]["name"]["first"];
-      String lastName = map["results"][0]["name"]["last"];
-      titleCont.text = titleName.toString();
-      firstNameCont.text = firstName.toString();
-      lastNameCont.text = lastName.toString();
+    try {
+      if (response.statusCode == 200) {
+        Map<String, dynamic> map = json.decode(response.body);
+        photoThumbnail = map["results"][0]["picture"]["thumbnail"];
+        photoLarge = map["results"][0]["picture"]["large"];
+        String titleName = map["results"][0]["name"]["title"];
+        String firstName = map["results"][0]["name"]["first"];
+        String lastName = map["results"][0]["name"]["last"];
+        titleCont.text = titleName.toString();
+        firstNameCont.text = firstName.toString();
+        lastNameCont.text = lastName.toString();
 
-      print(photoThumbnail);
-      print(photoLarge);
-      print(firstName);
-      print(lastName);
-      setState(() {
-        // newPhotoList.add(newPhoto);
-      });
-      return "Okey";
+        print(photoThumbnail);
+        print(photoLarge);
+        print(firstName);
+        print(lastName);
+        setState(() {
+          // newPhotoList.add(newPhoto);
+        });
+        // return "Okey";
+      } else {
+        throw Exception('Failed to load the api');
+      }
+    } on Exception catch (error) {
+      print(error);
     }
-    throw Exception('Failed to load the api');
+    return "Okey";
   }
 
   @override
