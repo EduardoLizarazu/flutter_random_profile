@@ -34,9 +34,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String photoThumbnail = "https://randomuser.me/api/portraits/men/4.jpg";
   String photoLarge = "https://randomuser.me/api/portraits/men/4.jpg";
-  TextEditingController titleCont = TextEditingController();
-  TextEditingController firstNameCont = TextEditingController();
-  TextEditingController lastNameCont = TextEditingController();
 
   final List<String> photoThumbnailList = <String>[];
   final List<String> photoLargeList = <String>[];
@@ -54,21 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
         String titleName = map["results"][0]["name"]["title"];
         String firstName = map["results"][0]["name"]["first"];
         String lastName = map["results"][0]["name"]["last"];
-        titleCont.text = titleName.toString();
-        firstNameCont.text = firstName.toString();
-        lastNameCont.text = lastName.toString();
-        // print(photoThumbnail);
-        // print(photoLarge);
-        // print(firstName);
-        // print(lastName);
         setState(() {
           photoThumbnailList.add(photoThumbnail);
           photoLargeList.add(photoThumbnail);
-          titleNameList.add(photoThumbnail);
-          firstNameList.add(photoThumbnail);
-          lastNameList.add(photoThumbnail);
+          titleNameList.add(titleName);
+          firstNameList.add(firstName);
+          lastNameList.add(lastName);
         });
-        // return "Okey";
       } else {
         throw Exception('Failed to load the api');
       }
@@ -81,39 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final allWidget = Row(
-      // ignore: prefer_const_literals_to_create_immutables
-      children: [
-        Image(image: NetworkImage(photoThumbnail)),
-        Container(
-          width: 100,
-          child: TextFormField(
-            controller: titleCont,
-            readOnly: true,
-            decoration:
-                const InputDecoration(hintText: "", border: InputBorder.none),
-          ),
-        ),
-        Container(
-          width: 100,
-          child: TextFormField(
-            controller: firstNameCont,
-            readOnly: true,
-            decoration:
-                const InputDecoration(hintText: "", border: InputBorder.none),
-          ),
-        ),
-        Container(
-          width: 100,
-          child: TextFormField(
-            controller: lastNameCont,
-            readOnly: true,
-            decoration:
-                const InputDecoration(hintText: "", border: InputBorder.none),
-          ),
-        ),
-      ],
-    );
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -134,33 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   // ignore: prefer_const_literals_to_create_immutables
                   children: [
                     Image(image: NetworkImage(photoThumbnailList[index])),
-                    Container(
-                      width: 100,
-                      child: TextFormField(
-                        controller: titleCont,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                            hintText: "", border: InputBorder.none),
-                      ),
-                    ),
-                    Container(
-                      width: 100,
-                      child: TextFormField(
-                        controller: firstNameCont,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                            hintText: "", border: InputBorder.none),
-                      ),
-                    ),
-                    Container(
-                      width: 100,
-                      child: TextFormField(
-                        controller: lastNameCont,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                            hintText: "", border: InputBorder.none),
-                      ),
-                    ),
+                    Container(width: 100, child: Text(titleNameList[index])),
+                    Container(width: 100, child: Text(firstNameList[index])),
+                    Container(width: 100, child: Text(lastNameList[index])),
                   ],
                 );
               },
